@@ -137,7 +137,7 @@ import HeadTop from '../../components/headTop/headTop'
 import ShopList from '../../components/shopList/shopList'
 // 引入 Swiper 轮播
 import Swiper from 'swiper'
-import 'swiper/css/swiper.min.css'
+import 'swiper/css/swiper.css'
 
 export default {
 
@@ -212,5 +212,5 @@ export default {
               .shop_header_title
                 color #999
                 font-size 14px
-                line-height 20px       
+                line-height 20px
 </style>
