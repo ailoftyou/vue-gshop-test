@@ -7,9 +7,20 @@
 
 <script>
 
+import {mapActions} from 'vuex'
 import FootGuider from './components/footGuider/FootGuider'
 
 export default {
+
+  mounted () {
+    // this.$store.dispatch('getAddress')
+    this.getAddress();
+    this.getUserInfo();
+  },
+
+  methods: {
+    ...mapActions(['getAddress','getUserInfo'])
+  },
 
   components : {
     FootGuider

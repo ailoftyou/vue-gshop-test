@@ -1,22 +1,22 @@
 <template>
     <div>
       <section class="profile">
-        
+
         <HeadTop title="我的" ></HeadTop>
 
-        <router-link to="/login">
+        <router-link :to="userInfo._id ? '/userInfo' : '/login'">
           <section class="profile-number">
           <a href="javascript:" class="profile-link">
             <div class="profile_image">
               <i class="iconfont icon-icon-test"></i>
             </div>
             <div class="user-info">
-              <p class="user-info-top">登录/注册</p>
+              <p class="user-info-top" v-if="!userInfo.phone">{{ userInfo.name || '登录/注册'}}</p>
               <p>
                 <span class="user-icon">
                   <i class="iconfont icon-shouji icon-mobile"></i>
                 </span>
-                <span class="icon-mobile-number">暂无绑定手机号</span>
+                <span class="icon-mobile-number">{{ userInfo.phone || '暂无绑定手机号'}}</span>
               </p>
             </div>
             <span class="arrow">
@@ -94,6 +94,10 @@
             </div>
           </a>
         </section>
+        <!-- 退出登陆 -->
+        <section class="profile_my_order border-1px" v-if="userInfo._id">
+          <mt-button type="danger" style="width:100%" @click="logout">退出登陆</mt-button>
+        </section>
       </section>
     </div>
 </template>
@@ -102,10 +106,33 @@
 
 import HeadTop from '../../components/headTop/headTop'
 
+import {mapState} from 'vuex'
+
+import {MessageBox,Toast} from 'mint-ui'
+
 export default {
-    
+
   components: {
     HeadTop
+  },
+  methods : {
+    logout () {
+      MessageBox.confirm('确认退出登陆?').then(
+        action => {
+          // 点击了确定
+          this.$store.dispatch('logout');
+          // console.log('点击了确定')
+          Toast('退出登陆')
+        },
+        action => {
+          // 点击了取消
+          console.log('点击了取消')
+        },
+      );
+    }
+  },
+  computed : {
+    ...mapState(['userInfo'])
   }
 
 }
@@ -245,5 +272,5 @@ export default {
                   height 10px
                   .icon-jiantou1
                     color #bbb
-                    font-size 10px        
+                    font-size 10px
 </style>
